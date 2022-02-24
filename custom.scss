@@ -43,6 +43,30 @@ section.game {
             color: black;
         }
     }
+    .turn-display {
+        grid-column: 2/-2;
+        display: flex;
+        justify-content: space-between;
+        span {
+            width: 100%;
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 2em;
+        }
+        span:nth-child(1) {
+            background-color: rgb(35, 84, 219);
+            border-right: 4px solid white;
+            box-shadow: 0 5px 15px rgba(94, 146, 243, 0.4);
+            opacity: 1;
+        }
+        span:nth-child(2) {
+            background-color: rgb(219, 133, 35);
+            box-shadow: 0 5px 15px rgba(243, 183, 94, 0.4);
+            border-left: 4px solid white;
+
+            opacity: 0.2;
+        }
+    }
     .extra-info {
         grid-column: 2/-2;
         color: white;

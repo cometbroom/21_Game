@@ -44,6 +44,29 @@ section.game .buttons button {
   padding: 10px 0px;
   color: black;
 }
+section.game .turn-display {
+  grid-column: 2/-2;
+  display: flex;
+  justify-content: space-between;
+}
+section.game .turn-display span {
+  width: 100%;
+  text-align: center;
+  padding: 50px 20px;
+  font-size: 2em;
+}
+section.game .turn-display span:nth-child(1) {
+  background-color: #2354db;
+  border-right: 4px solid white;
+  box-shadow: 0 5px 15px rgba(94, 146, 243, 0.4);
+  opacity: 1;
+}
+section.game .turn-display span:nth-child(2) {
+  background-color: #db8523;
+  box-shadow: 0 5px 15px rgba(243, 183, 94, 0.4);
+  border-left: 4px solid white;
+  opacity: 0.2;
+}
 section.game .extra-info {
   grid-column: 2/-2;
   color: white;
