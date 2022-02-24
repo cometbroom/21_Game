@@ -1,0 +1,51 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    font-family: "Roboto Condensed", sans-serif;
+    color: white;
+}
+
+section.game {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding: 20px 0px;
+    gap: 20px;
+    .ui-display {
+        grid-column: 2/-2;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        font-size: 2.5em;
+        color: white;
+        gap: 10px;
+    }
+    .buttons {
+        display: flex;
+        grid-column: 2/-2;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        button {
+            width: 30%;
+            font-size: 2em;
+            cursor: pointer;
+            border: 3px solid blue;
+            background-color: white;
+            border-radius: 6px;
+            padding: 10px 0px;
+            color: black;
+        }
+    }
+    .extra-info {
+        grid-column: 2/-2;
+        color: white;
+        font-size: 2.5em;
+    }
+}
