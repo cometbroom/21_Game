@@ -33,11 +33,11 @@ function btnClicked(e) {
     let targetNum = parseInt(e.target.innerHTML, 10);
     const total = addToTotal(targetNum);
     if (total === 21) {
-        winCondition("You");
+        winCondition("Player");
         return;
     }
     if (total > 21) {
-        winCondition("none");
+        winCondition("No one");
         return;
     }
     computerTurn();
@@ -65,8 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const turnDisplay = document.querySelector(".turn-display");
 
     winCondition = (winner) => {
-        extraInfo.innerHTML = `${winner} win!`;
+        extraInfo.innerHTML = `${winner} wins!`;
         deleteBtnEvents(buttons);
+    };
+
+    const checkPossibleWin = (options) => {
+        for (const number of options) {
+            if (getNumber(totalDisplay) + number === 21) return number;
+        }
+        return -1;
     };
 
     computerTurn = async () => {
@@ -78,14 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
         //turnDisplay.children[0].style;
         changeTurnStyle(turnDisplay, "computer");
         await sleep(randSleep).then(() => {
-            total = addToTotal(options[randIndex]);
+            let possibleWinNum = checkPossibleWin(options);
+            if (possibleWinNum === -1) total = addToTotal(options[randIndex]);
+            else total = addToTotal(possibleWinNum);
         });
         if (total === 21) {
             winCondition("Computer");
             return;
         }
         if (total > 21) {
-            winCondition("none");
+            winCondition("No one");
             return;
         }
         changeTurnStyle(turnDisplay, "player");
