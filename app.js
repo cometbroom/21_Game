@@ -26,17 +26,32 @@ const changeTurnStyle = (el, actor) => {
     }
 };
 
-const addButtonEvents = (parent, winCallback, computerTurn) => {
+let winCondition;
+let computerTurn;
+
+function btnClicked(e) {
+    let targetNum = parseInt(e.target.innerHTML, 10);
+    const total = addToTotal(targetNum);
+    if (total === 21) {
+        winCondition("You");
+        return;
+    }
+    if (total > 21) {
+        winCondition("none");
+        return;
+    }
+    computerTurn();
+}
+
+const addButtonEvents = (parent) => {
     for (const element of parent.children) {
-        element.addEventListener("click", (e) => {
-            let targetNum = parseInt(e.target.innerHTML, 10);
-            const total = addToTotal(targetNum);
-            if (total === 21) {
-                winCallback();
-                return;
-            }
-            computerTurn();
-        });
+        element.addEventListener("click", btnClicked);
+    }
+};
+
+const deleteBtnEvents = (parent) => {
+    for (const element of parent.children) {
+        element.removeEventListener("click", btnClicked);
     }
 };
 
@@ -49,11 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const extraInfo = document.querySelector(".extra-info");
     const turnDisplay = document.querySelector(".turn-display");
 
-    const winCondition = () => {
-        extraInfo.innerHTML = "You win!";
+    winCondition = (winner) => {
+        extraInfo.innerHTML = `${winner} win!`;
+        deleteBtnEvents(buttons);
     };
 
-    const computerTurn = async () => {
+    computerTurn = async () => {
         const options = [1, 2, 3];
         const randIndex = Math.floor(Math.random() * options.length);
         const randSleep = Math.floor(Math.random() * (1500 - 500 + 1) + 500);
@@ -65,7 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
             total = addToTotal(options[randIndex]);
         });
         if (total === 21) {
-            extraInfo.innerHTML = "Computer won!";
+            winCondition("Computer");
+            return;
+        }
+        if (total > 21) {
+            winCondition("none");
+            return;
         }
         changeTurnStyle(turnDisplay, "player");
     };
