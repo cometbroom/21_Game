@@ -56,11 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const computerTurn = async () => {
         const options = [1, 2, 3];
         const randIndex = Math.floor(Math.random() * options.length);
+        const randSleep = Math.floor(Math.random() * (1500 - 500 + 1) + 500);
         let total;
 
         //turnDisplay.children[0].style;
         changeTurnStyle(turnDisplay, "computer");
-        await sleep(2000).then(() => {
+        await sleep(randSleep).then(() => {
             total = addToTotal(options[randIndex]);
         });
         if (total === 21) {
