@@ -1,3 +1,9 @@
+//3 ai difficulties: harder means deeper prediction pattern: 17 medium, 13 hard.
+// easy is the current which has predictionPattern towards 18 (computer turn)
+
+//Globals
+let lockPlayer = false;
+
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -30,6 +36,7 @@ let winCondition;
 let computerTurn;
 
 function btnClicked(e) {
+    if (lockPlayer === true) return;
     let targetNum = parseInt(e.target.innerHTML, 10);
     const total = addToTotal(targetNum);
     if (total === 21) {
@@ -82,6 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const randSleep = Math.floor(Math.random() * (1500 - 500 + 1) + 500);
         let total;
 
+        lockPlayer = true;
+
         //turnDisplay.children[0].style;
         changeTurnStyle(turnDisplay, "computer");
         await sleep(randSleep).then(() => {
@@ -98,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         changeTurnStyle(turnDisplay, "player");
+        lockPlayer = false;
     };
 
     addButtonEvents(buttons, winCondition, computerTurn);
