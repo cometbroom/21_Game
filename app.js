@@ -3,6 +3,11 @@
 
 //Globals
 let lockPlayer = false;
+const sounds = {
+    uiSound1: new Audio("./assets/sounds/Game_Invite.wav"),
+    playerWon: new Audio("./assets/sounds/Negative_Bell_Bling_Game_Sound.wav"),
+    computerWon: new Audio("./assets/sounds/Robot_Whoosh_Notification.wav"),
+};
 
 function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -22,10 +27,10 @@ const addToTotal = (x) => {
     return newTotal;
 };
 
-function animateTurn() {}
-
 const changeTurnStyle = (el, actor) => {
     const duration = 0.3;
+
+    sounds.uiSound1.play();
 
     if (actor === "computer") {
         gsap.to(el.children[0], { opacity: 0.2, duration });
@@ -79,7 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const turnDisplay = document.querySelector(".turn-display");
 
     winCondition = (winner) => {
-        extraInfo.innerHTML = `${winner} wins!`;
+        extraInfo.textContent = `${winner} wins!`;
+        sounds[`${winner.toLowerCase()}Won`].play();
+
         deleteBtnEvents(buttons);
     };
 
@@ -116,8 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
         changeTurnStyle(turnDisplay, "player");
         lockPlayer = false;
     };
-
-    function animations() {}
 
     addButtonEvents(buttons, winCondition, computerTurn);
 
