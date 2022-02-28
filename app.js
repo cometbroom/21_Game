@@ -22,13 +22,20 @@ const addToTotal = (x) => {
     return newTotal;
 };
 
+function animateTurn() {}
+
 const changeTurnStyle = (el, actor) => {
+    const duration = 0.3;
+
     if (actor === "computer") {
-        el.children[0].style.opacity = "0.2";
-        el.children[1].style.opacity = "1";
+        gsap.to(el.children[0], { opacity: 0.2, duration });
+        gsap.to(el.children[1], { opacity: 1, duration });
+
+        //el.children[0].style.opacity = "0.2";
+        //el.children[1].style.opacity = "1";
     } else {
-        el.children[1].style.opacity = "0.2";
-        el.children[0].style.opacity = "1";
+        gsap.to(el.children[0], { opacity: 1, duration });
+        gsap.to(el.children[1], { opacity: 0.2, duration });
     }
 };
 
@@ -109,6 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         changeTurnStyle(turnDisplay, "player");
         lockPlayer = false;
     };
+
+    function animations() {}
 
     addButtonEvents(buttons, winCondition, computerTurn);
 
